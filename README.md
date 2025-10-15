@@ -11,7 +11,7 @@ Import examen package. Following conferences there are two ways to import the pa
 \usepackage{examen} # renders examen for students
 ```
 
-Follow the `examen.tex` file to understand all commands defined to set your subject title, exam duration and so on.
+Follow the `example.tex` file to understand all commands defined to set your subject title, exam duration and so on.
 
 # TODO
 
