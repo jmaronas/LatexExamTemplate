@@ -50,27 +50,36 @@
 \newcommand{\setexamduration}[1]{\renewcommand{\examduration}{#1}}
 \newcommand{\setexaminstructions}[1]{\renewcommand{\examinstructions}{#1}} % <-- setter instrucciones
 
-% ===== Cabecera =======
+% ===== Pie de página por página =======
 \pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\fancyfoot[C]{\thepage}
+\fancyhf{} % limpiar cabecera y pie
+
+% Pie con línea horizontal y ancho limitado
+\fancyfoot[L]{%
+  \parbox[t]{0.48\textwidth}{\examtitle \\ \examtype}%
+}
+\fancyfoot[R]{%
+  \parbox[t]{0.48\textwidth}{\raggedleft \degree}%
+}
+\fancyfoot[C]{\thepage} % opcional: número de página centrado
+
+\renewcommand{\footrulewidth}{0.4pt} % línea horizontal en el pie
+\renewcommand{\headrulewidth}{0pt}   % eliminar línea de cabecera
+
 
 % ===== Formato de títulos =======
 \titleformat{\section}{\bfseries\LARGE}{Problema \thesection.}{0.5em}{}
 \renewcommand{\thesubsection}{\arabic{subsection}}
 \titleformat{\subsection}
-  {\normalsize\bfseries}                  % Fuente sans-serif y tamaño "large"
-  {Apartado \thesubsection.}                   % Numeración simple: 1., 2., 3.
+  {\normalsize\bfseries}                  
+  {Apartado \thesubsection.}                   
   {0.5em}
   {}
 \titleformat{\subsubsection}
-  {\small\bfseries}                  % Fuente sans-serif y tamaño "large"
-  {\thesubsubsection.}                   % Numeración simple: 1., 2., 3.
+  {\small\bfseries}                  
+  {\thesubsubsection.}                   
   {0.5em}
   {}
-
-
 
 % ===== Comando \solution con recuadro =======
 \newtcolorbox{solutionbox}{
@@ -98,6 +107,7 @@
 
 % ===== Portada del examen =======
 \newcommand{\makeexamheader}{
+\thispagestyle{empty} % <-- elimina cabecera y pie en la portada
   \begin{center}
     {\Huge \examtitle}\\[0.25cm]
     {\large  \examtype}\\[0.25cm]
