@@ -12,9 +12,12 @@
 \usepackage{parskip}
 \usepackage{helvet}
 \usepackage{xcolor}
-\usepackage{tcolorbox} % Para recuadros
+\usepackage{tcolorbox} 
+\tcbuselibrary{breakable} 
 \usepackage{tikz}
+\usepackage{float}
 \usetikzlibrary{positioning}
+\usepackage{xparse}
 
 % ===== Paquetes matemáticos =====
 \usepackage{amsmath,amssymb,amsthm,mathtools,bm,physics,siunitx,xfrac,cancel,nicefrac}
@@ -31,7 +34,12 @@
 
 % ===== Opciones de paquete =====
 \newif\ifshowsolutions
-\DeclareOption{solution}{\showsolutionstrue}
+\newif\ifshowanswerbox
+\showanswerboxtrue
+\DeclareOption{solution}{
+\showsolutionstrue
+\showanswerboxfalse
+}
 \DeclareOption*{\relax}
 \ProcessOptions\relax
 
@@ -42,6 +50,8 @@
 \newcommand{\examdate}{}
 \newcommand{\examduration}{}
 \newcommand{\examinstructions}{} % <-- aquí almacenamos las instrucciones
+\newcommand{\nota}[1]{(#1/\_\_\_\_)} % <-- aquí almacenamos las instrucciones
+
 
 \newcommand{\setexamtitle}[1]{\renewcommand{\examtitle}{#1}}
 \newcommand{\setexamtype}[1]{\renewcommand{\examtype}{#1}}
@@ -80,6 +90,27 @@
   {\thesubsubsection.}                   
   {0.5em}
   {}
+
+
+% % ===== Comando para respuesta =======
+\NewDocumentCommand{\answerbox}{O{\textbf{Respuesta:}} m o}{%
+  \ifshowanswerbox
+    \begin{tcolorbox}[
+        colframe=black,
+        colback=white,
+        boxrule=0.4pt,
+        width=\textwidth,
+        height=#2cm,
+        top=2mm, bottom=2mm, left=2mm, right=2mm,
+        breakable
+    ]
+    #1 \\[3pt] % título (por defecto "Respuesta:")
+    \IfValueT{#3}{#3} % contenido solo si se pasa
+    \end{tcolorbox}
+  \fi
+}
+
+
 
 % ===== Comando \solution con recuadro =======
 \newtcolorbox{solutionbox}{
